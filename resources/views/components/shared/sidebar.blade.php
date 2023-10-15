@@ -20,12 +20,13 @@
         </div>
         <ul class="sidebar-menu">
             <li>
-                <a class="sidebar-header" href="index.html" style="display: flex; align-items: center;">
+                <a class="sidebar-header" href="{{ route('dashboard') }}" style="display: flex; align-items: center;">
                     <i data-feather="home"></i>
                     <span>Dashboard</span>
                 </a>
             </li>
-
+            {{-- @dd() --}}
+            @if(Auth::user()->with('role')->first()->role->produkCreate == 'aktif' || Auth::user()->with('role')->first()->role->produkList == 'aktif' || Auth::user()->with('role')->first()->role->produkKategoriList == 'aktif')
             <li>
                 <a class="sidebar-header" href="javascript:void(0)" style="display: flex; align-items: center; justify-content: space-between;">
                     <div style="display: flex; align-items: center;">
@@ -37,139 +38,64 @@
 
 
                 <ul class="sidebar-submenu">
+                    @if(Auth::user()->with('role')->first()->role->produkCreate == 'aktif')
                     <li>
-                        <a href="{{ route('product.add') }}">
+                        <a href="{{ route('produk.add') }}">
                             <i class="fa fa-circle"></i>
                             <span>Add Product</span>
                         </a>
                     </li>
+                    @endif
+                    @if(Auth::user()->with('role')->first()->role->produkList == 'aktif')
                     <li>
-                        <a href="?page=kategori-produk">
+                        <a href="{{ route('produk.list') }}">
                             <i class="fa fa-circle"></i>
                             <span>List Produk</span>
                         </a>
                     </li>
+                    @endif
+                    @if(Auth::user()->with('role')->first()->role->produkKategoriList == 'aktif')
                     <li>
-                        <a href="?page=kategori-produk">
+                        <a href="{{ route('produk.kategori') }}">
                             <i class="fa fa-circle"></i>
                             <span>Kategori Produk</span>
                         </a>
                     </li>
-                    
-                    <li>
-                        <a href="javascript:void(0)">
-                            <i class="fa fa-circle"></i>
-                            <span>Physical</span>
-                            <i class="fa fa-angle-right pull-right"></i>
-                        </a>
-
-                        <ul class="sidebar-submenu">
-                            <li>
-                                <a href="category.html">
-                                    <i class="fa fa-circle"></i>Category
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="category-sub.html">
-                                    <i class="fa fa-circle"></i>Sub Category
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="product-list.html">
-                                    <i class="fa fa-circle"></i>Product List
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="product-detail.html">
-                                    <i class="fa fa-circle"></i>Product Detail
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="add-product.html">
-                                    <i class="fa fa-circle"></i>Add Product
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-
-                    <li>
-                        <a href="javascript:void(0)">
-                            <i class="fa fa-circle"></i>
-                            <span>Digital</span>
-                            <i class="fa fa-angle-right pull-right"></i>
-                        </a>
-
-                        <ul class="sidebar-submenu">
-                            <li>
-                                <a href="category-digital.html">
-                                    <i class="fa fa-circle"></i>Category
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="category-digitalsub.html">
-                                    <i class="fa fa-circle"></i>Sub Category
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="product-listdigital.html">
-                                    <i class="fa fa-circle"></i>Product List
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="add-digital-product.html">
-                                    <i class="fa fa-circle"></i>Add Product
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-
-                    <li>
-                        <a href="product-review.html">
-                            <i class="fa fa-circle"></i>
-                            <span>product Review</span>
-                        </a>
-                    </li>
+                    @endif
                 </ul>
             </li>
-
-            {{-- <li>
-                <a class="sidebar-header" href="javascript:void(0)">
-                    <i data-feather="archive"></i>
-                    <span>Orders</span>
+            @endif
+            @if(Auth::user()->with('role')->first()->role->sliderList == 'aktif' || Auth::user()->with('role')->first()->role->bannerList == 'aktif')
+            <li>
+                <a class="sidebar-header" href="javascript:void(0)" style="display: flex; align-items: center; justify-content: space-between;">
+                    <div style="display: flex; align-items: center;">
+                        <i data-feather="archive"></i>
+                        <span>Home</span>
+                    </div>
                     <i class="fa fa-angle-right pull-right"></i>
                 </a>
 
                 <ul class="sidebar-submenu">
+                    @if(Auth::user()->with('role')->first()->role->sliderList == 'aktif')
                     <li>
-                        <a href="order-list.html">
+                        <a href="{{ route('home.slider.list') }}">
                             <i class="fa fa-circle"></i>
-                            <span>Order List</span>
+                            <span>Slider List</span>
                         </a>
                     </li>
-
+                    @endif
+                    @if(Auth::user()->with('role')->first()->role->bannerList == 'aktif')
                     <li>
-                        <a href="order-tracking.html">
+                        <a href="{{ route('home.banner.list') }}">
                             <i class="fa fa-circle"></i>
-                            <span>Order Tracking</span>
+                            <span>Banner List</span>
                         </a>
                     </li>
-
-                    <li>
-                        <a href="order-detail.html">
-                            <i class="fa fa-circle"></i>
-                            <span>Order Details</span>
-                        </a>
-                    </li>
+                    @endif
                 </ul>
-            </li>
-
+            </li> 
+            @endif
+            {{--
             <li>
                 <a class="sidebar-header" href="javascript:void(0)">
                     <i data-feather="dollar-sign"></i>
@@ -209,29 +135,44 @@
                         </a>
                     </li>
                 </ul>
-            </li>
-
+            </li> --}}
+            @if(Auth::user()->with('role')->first()->role->pageList == 'aktif' || Auth::user()->with('role')->first()->role->pageCreate == 'aktif' || Auth::user()->with('role')->first()->role->pageKategoriList == 'aktif')
             <li>
-                <a class="sidebar-header" href="javascript:void(0)">
-                    <i data-feather="clipboard"></i>
-                    <span>Pages</span>
+                <a class="sidebar-header" href="javascript:void(0)" style="display: flex; justify-content: space-between; align-items: center;">
+                    <div style="display: flex; align-items: center; ">
+                        <i data-feather="clipboard"></i>
+                        <span>Pages</span>
+                    </div>
                     <i class="fa fa-angle-right pull-right"></i>
                 </a>
                 <ul class="sidebar-submenu">
+                    @if(Auth::user()->with('role')->first()->role->pageList == 'aktif')
                     <li>
-                        <a href="pages-list.html">
+                        <a href="{{ route('page.list') }}">
                             <i class="fa fa-circle"></i>List Page
                         </a>
                     </li>
+                    @endif
+                    @if(Auth::user()->with('role')->first()->role->pageCreate == 'aktif')
                     <li>
-                        <a href="page-create.html">
+                        <a href="{{ route('page.add') }}">
                             <i class="fa fa-circle"></i>Create Page
                         </a>
                     </li>
+                    @endif
+                    @if(Auth::user()->with('role')->first()->role->pageKategoriList == 'aktif')
+                    <li>
+                        <a href="{{ route('page.kategori.list') }}">
+                            <i class="fa fa-circle"></i>
+                            <span>Kategori</span>
+                        </a>
+                    </li>
+                    @endif
                 </ul>
             </li>
+            @endif
 
-            <li>
+            {{-- <li>
                 <a class="sidebar-header" href="media.html">
                     <i data-feather="camera"></i>
                     <span>Media</span>
@@ -257,29 +198,40 @@
                     </li>
                 </ul>
             </li> --}}
-
+            @if(Auth::user()->with('role')->first()->role->userList == 'aktif' || Auth::user()->with('role')->first()->role->userCreate == 'aktif' || Auth::user()->with('role')->first()->role->user_aksesList == 'aktif')
             <li>
                 <a class="sidebar-header" href="javascript:void(0)" style="display: flex; justify-content: space-between; align-items: center;">
                     <div style="display: flex; align-items: center; ">
                         <i data-feather="user-plus"></i>
-                    <span>Users</span>
+                        <span>Users</span>
                     </div>
                     <i class="fa fa-angle-right pull-right"></i>
                 </a>
                 <ul class="sidebar-submenu">
+                    @if(Auth::user()->with('role')->first()->role->userList == 'aktif')
                     <li>
                         <a href="{{ route('user.list') }}">
                             <i class="fa fa-circle"></i>User List
                         </a>
                     </li>
+                    @endif
+                    @if(Auth::user()->with('role')->first()->role->userCreate == 'aktif')
                     <li>
-                        <a href="create-user.html">
+                        <a href="{{ route('user.create') }}">
                             <i class="fa fa-circle"></i>Create User
                         </a>
                     </li>
+                    @endif
+                    @if(Auth::user()->with('role')->first()->role->user_aksesList == 'aktif')
+                    <li>
+                        <a href="{{ route('user.role') }}">
+                            <i class="fa fa-circle"></i>Hak Akses
+                        </a>
+                    </li>
+                    @endif
                 </ul>
             </li>
-
+            @endif
             {{-- <li>
                 <a class="sidebar-header" href="javascript:void(0)">
                     <i data-feather="users"></i>
@@ -359,13 +311,46 @@
                     <span>Forgot Password</span>
                 </a>
             </li>
-
+            --}}
+            @if(Auth::user()->with('role')->first()->role->subscribe == 'aktif')
             <li>
-                <a class="sidebar-header" href="login.html">
-                    <i data-feather="log-in"></i>
-                    <span>Login</span>
+                <a class="sidebar-header" href="{{ route('subcribe.list') }}">
+                    <div style="display:flex; align-items: center">
+                        <i data-feather="log-in"></i>
+                        <span>Subscribe</span>
+                    </div>
                 </a>
-            </li> --}}
+            </li>
+            @endif
+            @if(Auth::user()->with('role')->first()->role->pesananList == 'aktif' || Auth::user()->with('role')->first()->role->pesananSumberList == 'aktif')
+            <li>
+                <a class="sidebar-header" href="javascript:void(0)" style="display: flex; align-items: center; justify-content: space-between;">
+                    <div style="display: flex; align-items: center;">
+                        <i data-feather="box"></i>
+                        <span>Pesanan</span>
+                    </div>
+                    <i class="fa fa-angle-right pull-right"></i>
+                </a>
+                <ul class="sidebar-submenu">
+                    @if(Auth::user()->with('role')->first()->role->pesananList == 'aktif')
+                    <li>
+                        <a href="{{ route('pesanan.list') }}">
+                            <i class="fa fa-circle"></i>
+                            <span>List</span>
+                        </a>
+                    </li>
+                    @endif
+                    @if(Auth::user()->with('role')->first()->role->pesananSumberList == 'aktif')
+                    <li>
+                        <a href="{{ route('pesanan.sumber.list') }}">
+                            <i class="fa fa-circle"></i>
+                            <span>Sumber</span>
+                        </a>
+                    </li>
+                    @endif
+                </ul>
+            </li>
+            @endif
         </ul>
     </div>
 </div>

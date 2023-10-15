@@ -15,6 +15,7 @@ return new class extends Migration
             $table->string('id')->primary();
             $table->string('id_produk');
             $table->string('gambar');
+            $table->string('gambar_original');
             $table->string('title_id')->nullable();
             $table->string('title_en')->nullable();
             $table->string('status');

@@ -12,6 +12,7 @@ class Warna_produk extends Model
             protected $fillable = [
         'id_produk',
         'warna',
+        'gambar_original',
         'gambar',
         'kode_warna',
         'status',

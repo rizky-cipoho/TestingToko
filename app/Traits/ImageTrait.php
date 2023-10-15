@@ -9,7 +9,7 @@ use Image;
 
 Trait ImageTrait
 {
-public function upload($file){
+    public function upload($file){
         $url = $file->store('images');
 
         return[
@@ -56,5 +56,17 @@ public function upload($file){
         return $result->resize($resultWidht, $resultHeight, function ($constraint) {
             $constraint->aspectRatio();
         })->save(explode('/',$path['path'])[1].'\\'.$path['filename']);
+    }
+    public function original($img){
+        $store = $img->store('/original');
+        $storeExplode = explode('/', $store);
+
+        $save = $img->move('original/', $storeExplode[1]);
+        // dd($img->hashName());
+        return[
+            "filename" => $storeExplode[1],
+            "path" => "/original/",
+            "full" => "/original/".$storeExplode[1],
+        ];
     }
 }

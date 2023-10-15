@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('id_produk');
             $table->string('warna');
             $table->string('gambar');
+            $table->string('gambar_original');
             $table->string('kode_warna');
             $table->string('status');
             $table->timestamps();

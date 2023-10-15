@@ -12,8 +12,9 @@ class Gambar_produk extends Model
     protected $fillable = [
         'id_produk',
         'gambar',
-        'title_id'
-        'title_en'
+        'gambar_original',
+        'title_id',
+        'title_en',
         'status'
     ];
 }

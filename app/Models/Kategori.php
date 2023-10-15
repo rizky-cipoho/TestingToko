@@ -10,8 +10,6 @@ class Kategori extends Model
 {
     use HasFactory, HasUlids;
         protected $fillable = [
-        'kategori_id',
-        'kategori_en',
-        'status'
+        'kategori',
     ];
 }

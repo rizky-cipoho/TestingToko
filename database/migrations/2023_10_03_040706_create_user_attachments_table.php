@@ -14,9 +14,6 @@ return new class extends Migration
         Schema::create('user_attachments', function (Blueprint $table) {
             $table->string('id')->primary();
             $table->string('image');
-            $table->integer('height');
-            $table->integer('width');
-            $table->bigInteger('size');
             $table->string('path');
             $table->string('user_id');
             $table->timestamps();
