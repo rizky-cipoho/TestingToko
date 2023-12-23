@@ -14,10 +14,29 @@ use App\Models\Gambar_produk;
 use App\Traits\ImageTrait;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
+use App\Services\ProdukService;
+use App\Services\WarnaProdukService;
+use App\Services\GambarProdukService;
+use App\Services\UkuranProdukService;
+use App\Services\MasterLinkService;
 
 class ProdukController extends Controller
 {
     use ImageTrait;
+    public $produkService;
+    public $warnaProdukService;
+    public $gambarProdukService;
+    public $ukuranProdukService;
+    public $masterLinkService;
+    
+    
+    public function __construct(){
+        $this->produkService = new ProdukService;
+        $this->warnaProdukService = new WarnaProdukService;
+        $this->gambarProdukService = new GambarProdukService;
+        $this->ukuranProdukService = new UkuranProdukService;
+        $this->masterLinkService = new MasterLinkService;
+    }
     public function add(){
         $kategori = Kategori::where('status', 0)->get();
         return view('produk/add',[
@@ -25,17 +44,28 @@ class ProdukController extends Controller
         ]);
     }
     public function add_Proses(ProdukRequest $request){
-        $request->add();
+        $produk = $this->produkService->add($request);
+
+        foreach($request->warna as $warna){
+            $warna = $this->warnaProdukService->add($warna, $produk->id);
+        }
+        foreach($request->size as $size){
+            $size = $this->ukuranProdukService->add($size, $produk->id);
+        }
+        foreach($request->link as $link){
+            $link = $this->masterLinkService->add($link, $produk->id);
+        }
+        
+        if(isset($request->gambar_produk)){
+            foreach($request->gambar_produk as $gambar){
+                $gambar = $this->gambarProdukService->add($gambar, $produk->id);
+            }
+        }
         return redirect()->route('produk.add')->with('status', "Produk berhasil di tambahkan");
     }
     public function detail($id){
-        $produk = Produk::with('user')
-        ->with('kategori')
-        ->with('image')
-        ->with('warna')
-        ->with('ukuran')
-        ->with('link')
-        ->find($id);
+        $produk = $this->produkService->detail($id);
+
         // dd($produk->warna);
         return view('produk/detail',[
             'produk'=>$produk
@@ -57,27 +87,7 @@ class ProdukController extends Controller
         ]);
     }
     public function edit_Proses(Request $request, $id){
-        $request->validate([
-            'kategori'=>'required',
-            'judul_id'=>'required',
-            'judul_en'=>'required',
-            'deskripsi_id'=>'required',
-            'deskripsi_en'=>'required',
-            'harga_id'=>'required',
-            'harga_en'=>'required',
-            'diskon_id'=>'required',
-            'diskon_en'=>'required',
-            'modal_id'=>'required',
-            'modal_en'=>'required',
-            'kode_sku'=>'required',
-            'link_video'=>'required',
-            'status'=>'required',
-            'warna'=>'required',
-            'size'=>'required',
-            'link'=>'required',
-            'gambar'=>'max:7577',
-            'gambar_produk.*.gambar'=>'max:7577',
-        ]);
+        dd($request->all());
         $produk = Produk::find($id);
 
         if ($request->gambar != null) {
@@ -200,18 +210,10 @@ class ProdukController extends Controller
         return back()->with('success', 'Data berhasil di ubah');
     }
     public function list(){
-        $produks = Produk::where('id_user', Auth::user()->id)
-        ->with('user')
-        ->with('kategori')
-        ->with('image')
-        ->with('warna')
-        ->with('ukuran')
-        ->with('link')
-        ->orderBy('id', 'desc')
-        ->get();
-        // dd($produks);
+        $produk = $this->produkService->list();
+
         return view('produk/list',[
-            'produks'=>$produks
+            'produks'=>$produk
         ]);
     }
     public function edit_Delete($id){

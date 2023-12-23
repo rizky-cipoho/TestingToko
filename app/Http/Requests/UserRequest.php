@@ -25,24 +25,11 @@ class UserRequest extends FormRequest
     {
         return [
             'name'=>'required',
-            'username'=>'required',
+            'username'=>'required|unique:users',
             'jenis_kelamin'=>'required',
-            'password'=>'required|confirmed',
-            'role'=>'required',
-            'email'=>'required',
+            'password'=>'required',
+            'role_id'=>'required',
+            'email'=>'required|email|unique:users',
         ];
-    }
-    public function add(){
-        // dd($this->all());
-        $user = User::create([
-            'name'=>$this->name,
-            'username'=>$this->username,
-            'jenis_kelamin'=>$this->jenis_kelamin,
-            'password'=>Hash::make($this->password),
-            'role_id'=>$this->role,
-            'email'=>$this->role,
-            'image'=>'/images/sample.png',
-            'status'=>0,
-        ]);
     }
 }

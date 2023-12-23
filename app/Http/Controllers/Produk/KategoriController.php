@@ -15,12 +15,8 @@ class KategoriController extends Controller
             'kategoris'=>$kategori
         ]);
     }
-    public function kategori_add_proses(Request $request){
-        $request->validate([
-            'kategori_id'=>'required',
-            'kategori_en'=>'required',
-            'status'=>'required',
-        ]);
+    public function kategori_add_proses(KategoriRequest $request){
+
         $kategori = Kategori::create([
             'kategori_id'=>$request->kategori_id,
             'kategori_en'=>$request->kategori_en,

@@ -7,14 +7,19 @@ use App\Models\User;
 use App\Models\Role;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
+use App\Services\UserService;
+use Illuminate\View\View;
 
 class UserController extends Controller
 {
+    public $userService;
+    public function __construct(){
+        $this->userService = new UserService;
+    }
     public function list(){
-        $user = User::with('attachment')->with('role')->get();
-        // dd($user);
+        $list = $this->userService->list();
         return view('user.user-list', [
-            'users'=>$user
+            'users'=>$list
         ]);
     }
     public function create(){
@@ -24,8 +29,8 @@ class UserController extends Controller
         ]);
     }
     public function create_proses(UserRequest $request){
-        $request->add();
-        // dd("ass");
+        $list = $this->userService->create_proses();
+
         return back()->with('success', "Pengguna ditambahkan");
     }
 }
