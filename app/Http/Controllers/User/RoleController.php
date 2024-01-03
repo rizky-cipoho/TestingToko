@@ -17,6 +17,7 @@ class RoleController extends Controller
         $this->serviceRole = new RoleService;
     }
     public function role(){
+        // dd("asasd");
         $role = $this->serviceRole->role();
         return view('user/access',[
             'roles'=>$role

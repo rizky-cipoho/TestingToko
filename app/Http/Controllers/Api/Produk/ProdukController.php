@@ -35,6 +35,7 @@ class ProdukController extends Controller
     
     
     public function add_Proses(ProdukRequest $request): ResultResource{
+        dd("asdsadas");
         // dd($request->all());
         $produk = $this->produkService->add($request);
         // dd($produk->id);
@@ -68,16 +69,20 @@ class ProdukController extends Controller
         
         return ProdukResource::collection($produk);
     }
+    public function listGet(): ResourceCollection{
+        $produk = $this->produkService->listGet();        
+        return ProdukResource::collection($produk);
+    }
     public function edit_proses(Request $request, $id): ResultResource{
         $this->produkService->edit_Proses($request, $id);
         foreach($request->gambar_produk as $index=>$gambar){
             if(isset($gambar['id'])){
                 if(isset($gambar['gambar'])){
-                    $gambar = $this->gambarProdukService->edit($gambar, $produk->id);
+                    $gambar = $this->gambarProdukService->edit_Proses($gambar);
                 }
             }else{
                 if(isset($gambar['gambar'])){
-                    $gambar = $this->gambarProdukService->add($gambar, $produk->id);
+                    $gambar = $this->gambarProdukService->add($gambar, $id);
                 }
             }
         }
@@ -92,14 +97,14 @@ class ProdukController extends Controller
             if(isset($size['id'])){
                 $size = $this->ukuranProdukService->edit($size);
             }else{
-                $size = $this->ukuranProdukService->add($size, $produk->id);
+                $size = $this->ukuranProdukService->add($size, $id);
             }
         }
         foreach($request->link as $link){
             if(isset($link['id'])){
                 $link = $this->masterLinkService->edit($link);
             }else{
-                $link = $this->masterLinkService->add($link, $produk->id);
+                $link = $this->masterLinkService->add($link, $id);
             }
         }
         

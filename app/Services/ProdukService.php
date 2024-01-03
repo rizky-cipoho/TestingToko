@@ -11,7 +11,7 @@ use App\Models\Ukuran_produk;
 use App\Models\Master_link;
 use App\Models\Gambar_produk;
 use App\Traits\ImageTrait;
-
+use Illuminate\Pagination\LengthAwarePaginator;
 class ProdukService
 {
     use ImageTrait;
@@ -55,6 +55,18 @@ class ProdukService
     public function list(){
         $produk = Produk::where('id_user', Auth::user()->id)
         ->with('user')
+        ->with('kategori')
+        ->with('image')
+        ->with('warna')
+        ->with('ukuran')
+        ->with('link')
+        ->orderBy('id', 'desc')
+        ->paginate(20);
+        
+        return $produk;
+    }
+    public function listGet(): LengthAwarePaginator{
+        $produk = Produk::with('user')
         ->with('kategori')
         ->with('image')
         ->with('warna')

@@ -9,10 +9,11 @@ use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class RoleService
 {
-    public function role():collection{
+    public function role():LengthAwarePaginator{
         $role = Role::paginate(20);
         return $role;
     }

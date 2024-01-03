@@ -58,4 +58,8 @@ class AuthenticatedSessionController extends Controller
 
         return new ResultResource($auth);
     }
+    public function logoutApi(Request $request):ResultResource {
+        $request->user()->currentAccessToken()->delete();
+        return new ResultResource(collect(['result'=>'logout']));
+    }
 }

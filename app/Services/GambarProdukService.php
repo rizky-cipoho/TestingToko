@@ -11,9 +11,9 @@ class GambarProdukService
 {
     use ImageTrait;
     public function add($request, $id): Gambar_produk{
-        // dd($request['gambar']);   
-        $gambar_produk = $this->resize($request['gambar']);
-        $gambar_produk_original = $this->original($request['gambar']);
+        // dd($request);   
+        $gambar_produk = $this->resize($request);
+        $gambar_produk_original = $this->original($request);
         $gambar = Gambar_produk::create([
             'id_produk'=>$id,
             'gambar_original'=>$gambar_produk_original['full'],
@@ -22,7 +22,7 @@ class GambarProdukService
         ]);
         return $gambar;
     }
-    public function edit(){
+    public function edit_Proses($gambar):void {
         $gambar_produk_original = $this->original($gambar['gambar']);
         $gambar_produk = $this->resize($gambar['gambar']);
         Gambar_produk::find($gambar['id'])->update([

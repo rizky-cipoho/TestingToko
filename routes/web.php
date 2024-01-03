@@ -12,6 +12,7 @@ use App\Http\Controllers\Pesanan\SumberPesananController;
 use App\Http\Controllers\Home\SliderController;
 use App\Http\Controllers\Home\BannerController;
 use App\Http\Controllers\SubscribeController;
+use App\Http\Controllers\KontakController;
 use Illuminate\Support\Facades\Route;
 use App\Models\Role;
 /*
@@ -42,7 +43,7 @@ Route::middleware('auth')->group(function () {
       Route::post('/role/{id}/edit/proses', [RoleController::class, 'edit_proses'])->name('user.role.edit.proses')->can('gateAll');
       Route::post('/role/add/proses', [RoleController::class, 'add_proses'])->name('user.role.add.proses')->can('gateAll');
       Route::post('/role/delete/{id}/proses', [RoleController::class, 'delete_proses'])->name('user.role.delete.proses')->can('gateAll');
-  });
+   });
    Route::group(['prefix'=>'produk'], function(){
       Route::get('/add', [ProdukController::class, 'add'])->name('produk.add')->can('gateAll');
       Route::get('/detail/{id}', [ProdukController::class, 'detail'])->name('produk.detail')->can('gateAll');
@@ -56,8 +57,8 @@ Route::middleware('auth')->group(function () {
          Route::post('/add/proses', [KategoriController::class, 'kategori_add_proses'])->name('produk.kategori.add.proses')->can('gateAll');
          Route::post('/edit/{id}/proses', [KategoriController::class, 'edit_proses'])->name('produk.kategori.edit.proses')->can('gateAll');
          Route::post('/delete/proses', [KategoriController::class, 'delete'])->name('produk.kategori.delete.proses')->can('gateAll');
-     });
-  });
+      });
+   });
    Route::group(['prefix'=>'page'], function(){
       Route::get('/list', [PageController::class, 'list'])->name('page.list')->can('gateAll');
       Route::get('/add', [PageController::class, 'add'])->name('page.add')->can('gateAll');
@@ -70,8 +71,8 @@ Route::middleware('auth')->group(function () {
          Route::post('/add/proses', [KategoriPageController::class, 'add_proses'])->name('page.kategori.add.proses')->can('gateAll');
          Route::post('/edit/{id}/proses', [KategoriPageController::class, 'edit_proses'])->name('page.kategori.edit.proses')->can('gateAll');
          Route::post('/delete/{id}/proses', [KategoriPageController::class, 'delete_proses'])->name('page.kategori.delete.proses')->can('gateAll');
-     });
-  });
+      });
+   });
    Route::group(['prefix'=>'pesanan'], function(){
       Route::get('/list', [PesananController::class, 'list'])->name('pesanan.list')->can('gateAll');
       Route::post('/add/proses', [PesananController::class, 'add_proses'])->name('pesanan.add.proses')->can('gateAll');
@@ -84,32 +85,34 @@ Route::middleware('auth')->group(function () {
          Route::post('/list/sumber/add/proses', [SumberPesananController::class, 'sumber_add_proses'])->name('pesanan.sumber.add.proses')->can('gateAll');
          Route::post('/list/sumber/edit/{id}/proses', [SumberPesananController::class, 'sumber_edit_proses'])->name('pesanan.sumber.edit.proses')->can('gateAll');
          Route::post('/list/sumber/delete/{id}/proses', [SumberPesananController::class, 'sumber_delete_proses'])->name('pesanan.sumber.delete.proses')->can('gateAll');
-     });
-  });
+      });
+   });
    Route::group(['prefix'=>'home'], function(){
       Route::group(['prefix'=>'slider'], function(){
          Route::get('list', [SliderController::class, 'list'])->name('home.slider.list')->can('gateAll');
          Route::post('add/proses', [SliderController::class, 'add_proses'])->name('home.slider.add.proses')->can('gateAll');
          Route::post('edit/{id}/proses', [SliderController::class, 'edit_proses'])->name('home.slider.edit.proses')->can('gateAll');
          Route::post('delete/{id}/proses', [SliderController::class, 'delete_proses'])->name('home.slider.delete.proses')->can('gateAll');
-     });
+      });
       Route::group(['prefix'=>'banner'], function(){
          Route::get('list', [SliderController::class, 'list'])->name('home.banner.list')->can('gateAll');
          Route::post('add/proses', [BannerController::class, 'add_proses'])->name('home.banner.add.proses')->can('gateAll');
          Route::post('edit/{id}/proses', [BannerController::class, 'edit_proses'])->name('home.banner.edit.proses')->can('gateAll');
          Route::post('delete/{id}/proses', [BannerController::class, 'delete_proses'])->name('home.banner.delete.proses')->can('gateAll');
-     });
-  });
+      });
+   });
    Route::group(['prefix'=>'subcribe'], function(){
       Route::get('/list', [SubscribeController::class, 'list'])->name('subcribe.list')->can('gateAll');
       Route::get('/add/proses', [SubscribeController::class, 'add_proses'])->name('subcribe.add.proses')->can('gateAll');
-  });
+   });
    Route::get('/profile/edit/{id}', [ProfileController::class, 'edit'])->name('profile.edit')->can('gateAll');
    Route::get('/profile/detail/{id}', [ProfileController::class, 'detail'])->name('profile.detail')->can('gateAll');
    Route::post('/profile/edit/{id}/proses', [ProfileController::class, 'edit_proses'])->name('profile.edit.proses')->can('gateAll');
 
-    // Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    // Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+   Route::get('/kontak', [KontakController::class, 'kontak'])->name('kontak');
+   
+   Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+   Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
 require __DIR__.'/auth.php';

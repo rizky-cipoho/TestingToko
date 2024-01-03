@@ -27,7 +27,7 @@
                 <div class="row">
                     <div class="col-lg-6">
                         <div class="page-header-left">
-                            <h3>Subscribe List
+                            <h3>Kontak List
                                 <small>Multikart Admin panel</small>
                             </h3>
                         </div>
@@ -39,8 +39,8 @@
                                     <i data-feather="home"></i>
                                 </a>
                             </li>
-                            <li class="breadcrumb-item">Subscribe</li>
-                            <li class="breadcrumb-item active">Subscribe List</li>
+                            <li class="breadcrumb-item">Kontak</li>
+                            <li class="breadcrumb-item active">Kontak List</li>
                         </ol>
                     </div>
                 </div>
@@ -68,20 +68,25 @@
                             <thead>
                                 <tr>
                                     <th>No.</th>
+                                    <th>Nama</th>
                                     <th>Email</th>
+                                    <th>Deskripsi</th>
                                 </tr>
                             </thead>
 
                             <tbody>
-                                @foreach($subscribes as $index=>$subscribe)
+                                @foreach($kontaks as $index=>$kontak)
                                 <tr data-row-id="1">
                                     <td>{{ $index+1 }}</td>
-                                    <td>{{ $subscribe->email }}</td>
+                                    <td>{{ $kontak->name }}</td>
+                                    <td>{{ $kontak->email }}</td>
+                                    <td>{{ $kontak->description }}</td>
                                 </tr>
                                 @endforeach
                             </tbody>
                         </table>
                     </div>
+                    {{ $kontaks->links() }}
                 </div>
             </div>
         </div>

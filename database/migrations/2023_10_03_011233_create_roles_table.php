@@ -53,7 +53,6 @@ return new class extends Migration
             $table->string('pesananSumberCreate');
             $table->string('pesananSumberEdit');
             $table->string('pesananSumberDelete');
-            $table->string('profile');
             $table->string('subscribe');
             $table->timestamps();
         });

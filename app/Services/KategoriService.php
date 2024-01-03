@@ -5,6 +5,7 @@ namespace App\Services;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
 use App\Models\Kategori;
 
 class KategoriService
@@ -18,7 +19,7 @@ class KategoriService
         ]);
     }
 
-    public function list(): Collection{
+    public function list(): LengthAwarePaginator{
         $kategori = Kategori::paginate(20);
 
         return $kategori;

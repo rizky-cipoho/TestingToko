@@ -322,6 +322,14 @@
                 </a>
             </li>
             @endif
+            <li>
+                <a class="sidebar-header" href="{{ route('kontak') }}">
+                    <div style="display:flex; align-items: center">
+                        <i data-feather="log-in"></i>
+                        <span>Kontak</span>
+                    </div>
+                </a>
+            </li>
             @if(Auth::user()->with('role')->first()->role->pesananList == 'aktif' || Auth::user()->with('role')->first()->role->pesananSumberList == 'aktif')
             <li>
                 <a class="sidebar-header" href="javascript:void(0)" style="display: flex; align-items: center; justify-content: space-between;">

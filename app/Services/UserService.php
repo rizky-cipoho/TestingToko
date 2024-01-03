@@ -9,10 +9,11 @@ use App\Models\User;
 use App\Models\Role;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class UserService
 {
-	public function list(): Collection{
+	public function list(): LengthAwarePaginator{
 		$user = User::with('attachment')->with('role')->paginate(20);
 		
 		return $user;
@@ -55,7 +56,7 @@ class UserService
 				'email'=>$request->email,
 				'jenis_kelamin'=>$request->jenis_kelamin,
 				'status'=>$request->status,
-				'image'=> $request->image != null ? $request->image : $data->image,
+				'image'=> $request->image != null ? $request->image : $user->image,
 				'password'=> Hash::make($request->password),
 			]);
 		}else{
@@ -65,7 +66,7 @@ class UserService
 				'email'=>$request->email,
 				'jenis_kelamin'=>$request->jenis_kelamin,
 				'status'=>$request->status,
-				'image'=> $request->image != null ? $request->image : $data->image,
+				'image'=> $request->image != null ? $request->image : $user->image,
 			]);
 		}
 	}

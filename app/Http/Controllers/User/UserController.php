@@ -18,7 +18,7 @@ class UserController extends Controller
     }
     public function list(){
         $list = $this->userService->list();
-        return view('user.user-list', [
+        return view('user/user-list', [
             'users'=>$list
         ]);
     }
